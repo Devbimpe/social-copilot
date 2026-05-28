@@ -7,7 +7,7 @@ import requests
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
-OPENAI_MODEL = "gpt-4.1-mini"  # you can change this later if you like
+OPENAI_MODEL = "gpt-4.1-mini"  
 
 
 def build_project_summary(title: str, description: str, diagnostic_context: str) -> str:
@@ -100,7 +100,7 @@ Return the answer as valid JSON with the keys:
 
     content = _call_openai_chat(system_message, user_message)
 
-    # Make sure the model output is valid JSON
+    
     try:
         parsed = json.loads(content)
         return json.dumps(parsed)
