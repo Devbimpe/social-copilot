@@ -1,0 +1,60 @@
+import json
+from typing import List
+
+
+def build_project_summary(title: str, description: str, diagnostic_context: str) -> str:
+    parts = []
+    if title:
+        parts.append(f"Title: {title}")
+    if diagnostic_context:
+        parts.append(f"Diagnostic context: {diagnostic_context}")
+    if description:
+        parts.append(f"Description: {description}")
+    return "\n".join(parts)
+
+
+def build_doc_snippets(texts: List[str], max_chars: int = 2000) -> str:
+    joined = "\n\n".join(texts)
+    if len(joined) > max_chars:
+        return joined[:max_chars]
+    return joined
+
+
+def run_social_risk_analysis(project_summary: str, docs_text: List[str]) -> str:
+    """
+    Fake analysis so you can run the app without any API key.
+    Later you can replace this with a real call to an LLM.
+    """
+    _ = build_doc_snippets(docs_text)
+
+    result = {
+        "findings": [
+            {
+                "category": "equity",
+                "title": "Example equity risk",
+                "description": (
+                    "This is a simulated finding. In a real system, this would describe how the "
+                    "diagnostic model might perform differently for under served groups."
+                ),
+                "severity": "medium",
+                "confidence": 0.6,
+            },
+            {
+                "category": "documentation_gap",
+                "title": "Missing demographic breakdown",
+                "description": (
+                    "The documentation does not clearly describe which patient groups were included "
+                    "in the training and test data. This makes it difficult to assess social risks."
+                ),
+                "severity": "high",
+                "confidence": 0.8,
+            },
+        ],
+        "missing_information_questions": [
+            "Which demographic and clinical groups are represented in the training and test data",
+            "Are there known differences in model performance across key patient groups",
+        ],
+    }
+
+    return json.dumps(result)
+
